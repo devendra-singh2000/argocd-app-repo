@@ -45,9 +45,6 @@ pipeline {
 
     stage('Update GitOps repo') {
       steps {
-        dir('gitops') {
-          git url: "${GITOPS_REPO}", branch: 'main', credentialsId: GITOPS_CRED
-
           sh """
             sed -i 's#image: .*#image: ${REGISTRY}/${DOCKERHUB_USER}/${IMAGE_NAME}:${IMAGE_TAG}#' ${GITOPS_APP_PATH}/values.yaml
             git config user.email "jenkins@example.com"
@@ -55,7 +52,6 @@ pipeline {
             git commit -am "Update image tag to ${IMAGE_TAG}" || echo "No changes to commit"
             git push origin main
           """
-        }
       }
     }
   }
