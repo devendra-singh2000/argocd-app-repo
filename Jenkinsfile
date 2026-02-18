@@ -46,6 +46,7 @@ pipeline {
     stage('Update GitOps repo') {
       steps {
           sh """
+            rm -rf argocd-helm-repo
             git clone https://github.com/devendra-singh2000/argocd-helm-repo.git
             git branch
             cd argocd-helm-repo
