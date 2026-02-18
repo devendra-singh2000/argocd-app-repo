@@ -46,6 +46,8 @@ pipeline {
     stage('Update GitOps repo') {
       steps {
           sh """
+            git clone https://github.com/devendra-singh2000/argocd-helm-repo.git
+            git branch
             sed -i 's#image: .*#image: ${REGISTRY}/${DOCKERHUB_USER}/${IMAGE_NAME}:${IMAGE_TAG}#' ${GITOPS_APP_PATH}/values.yaml
             git config user.email "jenkins@example.com"
             git config user.name "Jenkins"
